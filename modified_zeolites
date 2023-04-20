@@ -1,0 +1,11 @@
+class ModifiedZeolites:
+    def __init__(self):
+        self.capacity = 100
+        self.is_full = True
+
+    def regenerate(self):
+        self.is_full = False
+        print("Modified zeolites have been regenerated.")
+
+    def is_full(self):
+        return self.is_full
