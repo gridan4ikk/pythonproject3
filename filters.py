@@ -6,7 +6,7 @@ class Filters:
         self.is_dirty = False
         print("Filters have been cleaned.")
 
-    def is_dirty(self):
+    def check_dirty_status(self):
         return self.is_dirty
 
     def is_clean(self):

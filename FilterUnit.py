@@ -1,6 +1,5 @@
 import time
 
-
 class FilterUnit:
     def __init__(self):
         self.mode = None
@@ -18,15 +17,15 @@ class FilterUnit:
         if mode == "FILTRATION":
             print("Starting filtration process...")
             self.current_mode = "FILTRATION"
-        elif mode == "WASHING":
+        elif mode == "BACKWASH":
             print("Starting backwash process...")
-            self.current_mode = "WASHING"
-        elif mode == "SAND COMPACTION":
+            self.current_mode = "BACKWASH"
+        elif mode == "RINSE":
             print("Starting rinse process...")
-            self.current_mode = "SAND COMPACTION"
-        elif mode == "EMPTYING":
+            self.current_mode = "RINSE"
+        elif mode == "WASTE":
             print("Starting waste process...")
-            self.current_mode = "EMPTYING"
+            self.current_mode = "WASTE"
         elif mode == "RECIRCULATION":
             print("Starting recirculation process...")
             self.current_mode = "RECIRCULATION"
@@ -49,18 +48,18 @@ class FilterUnit:
         time.sleep(180)
         print("Backwash complete.")
 
-        print("Starting sand compaction...")
+        print("Starting rinse...")
         # simulate sand compaction process
         time.sleep(30)
-        print("Sand compaction complete.")
+        print("Rinse complete.")
 
         print("Switching back to filtration mode...")
         self.is_dirty = False
         self.current_mode = "FILTRATION"
         print("Filter is now in filtration mode.")
 
-        filter_unit = FilterUnit()
-        filter_unit.switch_mode("FILTRATION")
+        local_filter_unit = FilterUnit()
+        local_filter_unit.switch_mode("FILTRATION")
 
     def is_on(self):
         pass

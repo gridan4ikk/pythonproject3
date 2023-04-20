@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 
+
 from FilterUnit import FilterUnit
 from filters import Filters
 from modified_zeolites import ModifiedZeolites
@@ -8,6 +9,7 @@ from modified_zeolites import ModifiedZeolites
 
 class SwimmingPool:
     def __init__(self, volume, length, width, depth):
+        self._mode_choice = None
         self.volume = volume
         self.length = length
         self.width = width
@@ -32,15 +34,15 @@ class SwimmingPool:
             self.filter_unit.clean_filter()
 
         if self.zeolites.is_full:
-            self.filter_unit.switch_mode("SAND COMPACTION")
+            self.filter_unit.switch_mode("RINSE")
             self.filter_unit.switch_mode("RECIRCULATION")
             self.zeolites.regenerate()
             self.filter_unit.switch_mode("FILTRATION")
-            if mode_choice == "2":
-                self.filter_unit.switch_mode("WASHING")
-            elif mode_choice == "4":
-                self.filter_unit.switch_mode("EMPTYING")
-            elif mode_choice == "6":
+            if self.mode_choice == "2":
+                self.filter_unit.switch_mode("BACKWASH")
+            elif self.mode_choice == "4":
+                self.filter_unit.switch_mode("WASTE")
+            elif self.mode_choice == "6":
                 self.filter_unit.switch_mode("CLOSED")
 
         self.water_is_clean = True
@@ -48,6 +50,14 @@ class SwimmingPool:
 
     def is_water_clean(self):
         return self.water_is_clean
+
+    @property
+    def mode_choice(self):
+        return self._mode_choice
+
+    @mode_choice.setter
+    def mode_choice(self, value):
+        self._mode_choice = value
 
     def pool_status(self):
         data = {
@@ -59,9 +69,9 @@ class SwimmingPool:
 
         print(df)
 
-    def tap_modes(self, mode_choice=None):
+    def tap_modes(self,):
         while True:
-            print("\nTap modes:")
+            print("\n Tap modes:")
             print("1. Water purification")
             print("2. Pool status")
             print("3. Filter unit mode")
@@ -85,7 +95,7 @@ class SwimmingPool:
                 elif mode_choice == "2":
                     self.filter_unit.switch_mode("BACKWASH")
                 elif mode_choice == "3":
-                    self.filter_unit.switch_mode("SAND COMPACTION")
+                    self.filter_unit.switch_mode("RINSE")
                 elif mode_choice == "4":
                     self.filter_unit.switch_mode("WASTE")
                 elif mode_choice == "5":
